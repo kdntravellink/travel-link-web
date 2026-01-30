@@ -34,21 +34,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async () => {
-      const storedToken = localStorage.getItem('token');
-      if (storedToken) {
-        try {
-          const userData = await apiClient.getMe();
-          setUser(userData);
-        } catch (error) {
-          localStorage.removeItem('token');
-          setToken(null);
-        }
-      }
-      setIsLoading(false);
-    };
-
-    loadUser();
+    // REMOVE AUTH: Always set a mock user for development, skip backend
+    setUser({
+      id: 0,
+      email: 'dev@bypass.com',
+      full_name: 'Dev Bypass',
+      verified: true,
+      locations_added: 0,
+      contribution_points: 0,
+      trust_score: 100,
+      created_at: new Date().toISOString(),
+    });
+    setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {

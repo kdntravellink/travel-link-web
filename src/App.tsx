@@ -21,13 +21,8 @@ import AddBusiness from './pages/AddBusiness';
 import Layout from './components/Layout';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { token, isLoading } = useAuth();
-  
-  if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  }
-  
-  return token ? <>{children}</> : <Navigate to="/login" />;
+  // BYPASS AUTH: Always render children, skip auth check
+  return <>{children}</>;
 }
 
 function AppRoutes() {
